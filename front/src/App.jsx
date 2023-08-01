@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import React from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import style from "./App.css";
+import Cards from "./components/Cards";
+import About from "./components/About.jsx";
+import Detail from "./components/Detail";
+import Navigation from "./components/Navigation";
+import Form from "./components/Form";
+import Favorites from './components/Favorites'
+
+
+const App = () => {
+  const [characters, setCharacters] = useState([]);
+  const location = useLocation();
+ const apiKey='key=henrym-gabrieltomasi'
+  const onSearch = (id) => {
+    axios(`https://rym2-production.up.railway.app/api/character/${id}?${apiKey}`).then(
+      ({ data }) => {
+        if (data.name) {
+          setCharacters((oldChars) => [...oldChars, data]);
+        } else {
+          window.alert("¡No hay personajes con este ID!");
+        }
+      }
+    );
+  };
+
+  const onClose = (id) => {
+    setCharacters(
+      characters.filter((char) => {
+        return char.id !== Number(id);
+      })
+    );
+  };
+
+  const navigate = useNavigate();
+  const [access, setAccess] = useState(false);
+  const EMAIL = "gabrieltomasi22@gmail.com";
+  const PASSWORD = "Asd1234";
+
+  const login = (userData) => {
+    console.log(userData);
+    if (userData?.password === PASSWORD && userData?.email === EMAIL) {
+      setAccess(true);
+      navigate("/home");
+    }
+  }
+  const logout = ()=>{
+    setAccess(false);
+      navigate("/");
+  }
+  useEffect(() => {
+    !access && navigate("/");
+  }, [access]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className={style.conteiner}>
+      {location.pathname !== "/" ? <Navigation onSearch={onSearch} logout={logout}/> : ""}
 
-export default App
+      <Routes>
+        <Route path="/" element={<Form login={login} />} />
+        <Route
+          path="/home"
+          element={<Cards characters={characters} onClose={onClose} />}
+        />
+        <Route path="/about" element={<About />} />
+        <Route
+          path="/detail/:id"
+          element={<Detail characters={characters} />}
+        />
+        <Route
+          path="/favorites"
+          element={<Favorites/>}
+        />
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
