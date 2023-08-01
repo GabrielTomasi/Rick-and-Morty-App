@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "../Card/Card";
 
 const Cards = ({characters, onClose}) => {
    console.log(characters);

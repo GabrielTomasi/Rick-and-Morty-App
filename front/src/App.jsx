@@ -4,12 +4,12 @@ import axios from "axios";
 import React from "react";
 
 import style from "./App.css";
-import Cards from "./components/Cards";
-import About from "./components/About.jsx";
-import Detail from "./components/Detail";
-import Navigation from "./components/Navigation";
-import Form from "./components/Form";
-import Favorites from './components/Favorites'
+import Cards from "./components/Cards/Cards";
+import About from "./components/About/About";
+import Detail from "./components/Detail/Detail";
+import Navigation from "./components/Navigation/Navigation";
+import Form from "./components/Form/Form";
+import Favorites from './components/Favorites/Favorites'
 
 
 const App = () => {
