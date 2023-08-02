@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import validation from "../../validation";
 
 const Form = ({ login }) => {
@@ -12,17 +12,18 @@ const Form = ({ login }) => {
     password: "",
   });
 
-  useEffect(()=>{
-    validation(userData, setErrors, errors)
-}, [userData])
+  useEffect(() => {
+    setErrors (validation(userData));
+  }, [userData]);
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setUserData({ ...userData, [name]: value });
-    validation({ ...userData, [name]: value }, setErrors, errors);
-};
+    setErrors(validation({ ...userData, [name]: value }));
+  };
 
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     login(userData);
@@ -37,7 +38,7 @@ const Form = ({ login }) => {
           value={userData.email}
           onChange={handleChange}
         />
-        <span>{errors.email}</span>
+        {errors.email ? <span>{errors.email}</span> : ''}
         <br />
         <label>Password</label>
         <input
@@ -46,9 +47,9 @@ const Form = ({ login }) => {
           value={userData.password}
           onChange={handleChange}
         />
-        <span>{errors.password}</span>
+        {errors.password ? <span>{errors.password}</span> : ''}
         <br />
-        <button tipe="submit">Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

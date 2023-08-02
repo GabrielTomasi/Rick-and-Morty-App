@@ -1,15 +1,20 @@
-const validation = (userData, setErrors, errors) =>{
-    const alfaRegex = /^(?=.*\d)(?=.*[az])(?=.*[AZ]).{5,10}$/
-    console.log(userData.email);
-    if (userData.email === '') {setErrors ({...errors, email:'El email está vacío'})}
-    else {setErrors ({...errors, email:''})}
-    if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{3})+$/.test(userData.email)) {setErrors({...errors, email: ''})}
-    else { setErrors({...errors, email: 'email inválido}'})}
-    if (!userData.email.length> 35) setErrors ({...errors, email:''});
-     else {setErrors ({...errors, email:'El email es muy largo'})};
-    
-     if (!userData.password.match(alfaRegex))setErrors ({...errors, password:' entre 6 y 10 caracteres, al menos un número y una mayúscula'})
-     else {setErrors ({...errors, password:''})};
-    }
+const validation = ({ email, password }) => {
+  const regExEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-] +@ [a-zA-Z0 -9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  const regexPassword = /^(?=.*\d).{5,9}$/
+  let errors = {};
+  if (!email){
+    errors.email='El email no puede estar vacío'
+  }
+  if (regExEmail.test(email)) {
+    errors.email = "Ingrese un email válido";
+  }
+  if (email.length>35){
+    errors.email = 'El email proporcionado es demaciado largo'
+  }
+  if (!regexPassword.test(password)){
+    errors.password = 'la contraseña debe contener al menos un número, y una longitud entre 6 y 10 caracteres'
+  }
+  return errors
+};
 
-export default validation
+export default validation;
