@@ -17,7 +17,6 @@ const Card = ({
   removeFav,
 }) => {
   const [isFav, setIsFav] = useState(false);
-  console.log(addFav);
   const handleFavorite = (event) => {
     isFav
       ? removeFav(id)
@@ -43,12 +42,10 @@ const Card = ({
       )}
       <button onClick={() => onClose(id)}>X</button>
       <h2>{id}</h2>
-      <Link to={`/detail/${id}`}>
-        <h2>Name: {name}</h2>
-      </Link>
-      <h2>Status: {status}</h2>
+      <Link to={`/detail/${id}`}><h2>Name: {name}</h2> </Link>
+      {/* <h2>Status: {status}</h2>
       <h2>Species: {species}</h2>
-      <h2>Gender: {gender}</h2>
+      <h2>Gender: {gender}</h2> */}
       <h2>Origin: {origin}</h2>
       <img src={image} alt={name} />
     </div>

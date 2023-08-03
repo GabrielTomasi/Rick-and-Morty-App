@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import validation from "../../validation";
 
+
 const Form = ({ login }) => {
   const [userData, setUserData] = useState({
     email: "",
@@ -38,6 +39,7 @@ const Form = ({ login }) => {
           value={userData.email}
           onChange={handleChange}
         />
+        <br />
         {errors.email ? <span>{errors.email}</span> : ''}
         <br />
         <label>Password</label>
@@ -47,6 +49,7 @@ const Form = ({ login }) => {
           value={userData.password}
           onChange={handleChange}
         />
+        <br />
         {errors.password ? <span>{errors.password}</span> : ''}
         <br />
         <button type="submit">Submit</button>
