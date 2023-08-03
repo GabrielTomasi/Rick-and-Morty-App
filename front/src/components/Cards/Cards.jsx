@@ -1,5 +1,5 @@
 import Card from "../Card/Card";
-
+import style from './Cards.module.css';
 const Cards = ({characters, onClose}) => {
    console.log(characters);
    const element = characters.map(({id,name,species,gender,image,status,origin})=>{
@@ -15,7 +15,7 @@ const Cards = ({characters, onClose}) => {
             onClose={() => onClose(id)}
             />
          })
-   return (<div> {element} </div>)
+   return (<div className={style.div}> {element} </div>)
 };
 
 export default Cards;

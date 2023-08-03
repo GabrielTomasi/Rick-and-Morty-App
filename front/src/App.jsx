@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import React from "react";
-import style from "../src/App.module.css";
 
 import Cards from "./components/Cards/Cards";
 import About from "./components/About/About";
@@ -11,6 +10,9 @@ import Navigation from "./components/Navigation/Navigation";
 import Form from "./components/Form/Form";
 import Favorites from "./components/Favorites/Favorites";
 import PageNotFound from "./components/Page no found/Pagenofound";
+import { removeFav } from "./redux/actions";
+import { useDispatch } from "react-redux";
+
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
@@ -20,7 +22,7 @@ const App = () => {
   const [access, setAccess] = useState(false);
   const EMAIL = "gabrieltomasi22@gmail.com";
   const PASSWORD = "Asd1234";
-
+  const dispatch = useDispatch()
   const onSearch = (id) => {
     axios(
       `https://rym2-production.up.railway.app/api/character/${id}?${apiKey}`
@@ -53,6 +55,7 @@ const App = () => {
   };
   
   const onClose = (id) => {
+    dispatch(removeFav(id))
     setCharacters(
       characters.filter((char) => {
         return char.id !== Number(id);
@@ -60,13 +63,7 @@ const App = () => {
     );
   };
 
-  const onCloseFav = (id) => {
-    setCharacters(
-      characters.filter((char) => {
-        return char.id !== Number(id);
-      })
-    );
-  };
+
 
   const login = (userData) => {
     if (userData?.password === PASSWORD && userData?.email === EMAIL) {
@@ -83,7 +80,7 @@ const App = () => {
   }, [access]);
 
   return (
-    <div>
+    <div className="App">
       {location.pathname !== "/" && (<Navigation onSearch={onSearch} logout={logout} randomSearch={randomSearch} />)}
 
       <Routes>
@@ -91,7 +88,7 @@ const App = () => {
         <Route path="/home"element={<Cards characters={characters} onClose={onClose} />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail characters={characters} />} />
-        <Route path="/favorites" element={<Favorites onCloseFav={onCloseFav} />} />
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

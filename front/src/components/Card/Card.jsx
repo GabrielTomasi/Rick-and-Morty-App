@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { addFav, removeFav } from "../../redux/actions";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
+import style from "../Card/Card.module.css";
 
 const Card = ({
   id,
@@ -34,20 +35,22 @@ const Card = ({
   }, [myFavorites]);
 
   return (
-    <div>
+    <div className={style.div}>
       {isFav ? (
-        <button onClick={handleFavorite}>❤️</button>
+        <button className={style.btn2}onClick={handleFavorite}>❤️</button>
       ) : (
-        <button onClick={handleFavorite}>🤍</button>
+        <button className={style.btn2}onClick={handleFavorite}>🤍</button>
       )}
-      <button onClick={() => onClose(id)}>X</button>
-      <h2>{id}</h2>
-      <Link to={`/detail/${id}`}><h2>Name: {name}</h2> </Link>
-      {/* <h2>Status: {status}</h2>
-      <h2>Species: {species}</h2>
-      <h2>Gender: {gender}</h2> */}
-      <h2>Origin: {origin}</h2>
-      <img src={image} alt={name} />
+      <button className={style.btn} onClick={() => onClose(id)}> X </button>
+      <h2 className={style.data}>{id}</h2>
+      <img className={style.image} src={image} alt={name} />
+      
+      <Link to={`/detail/${id}`}>
+      <h2 className={style.name} >Name: {name}</h2>{" "}
+      </Link>
+      <div className={style.data}>
+      <h2>Gender: {gender}</h2>
+      </div>
     </div>
   );
 };

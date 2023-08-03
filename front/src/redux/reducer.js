@@ -10,8 +10,8 @@ const reducer = (state = initialState, action) => {
     case ADD_FAV:
       return {
         ...state,
-        allCharacters: [...state.allCharacters, action.payload],
-        myFavorites: [...state.allCharacters, action.payload],
+        allCharacters: [...state.myFavorites, action.payload],
+        myFavorites: [...state.myFavorites, action.payload],
       };
     case REMOVE_FAV:
       return {
