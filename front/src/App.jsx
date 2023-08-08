@@ -25,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch()
   const onSearch = (id) => {
     axios(
-      `https://rym2-production.up.railway.app/api/character/${id}?${apiKey}`
+      `http://localhost:3001/rickandmorty/character/${id}`
     ).then(({ data }) => {
       if (data.name) {
         const characterExist = characters.some((char) => char.id === data.id);
@@ -39,9 +39,9 @@ const App = () => {
   };
 
   const randomSearch = ()=>{
-    const id = Math.floor(Math.random() * 826)
+    const id = Math.floor(Math.random() * 5)
     axios(
-      `https://rym2-production.up.railway.app/api/character/${id}?${apiKey}`
+      `http://localhost:3001/rickandmorty/character/${id}`
     ).then(({ data }) => {
       if (data.name) {
         const characterExist = characters.some((char) => char.id === data.id);
