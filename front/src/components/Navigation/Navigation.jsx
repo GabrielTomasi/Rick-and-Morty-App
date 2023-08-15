@@ -13,7 +13,7 @@ const Navigation = ({onSearch, logout, randomSearch}) => {
       <button><NavLink to='/home' >Home </NavLink></button>
       <button onClick={unlog}><NavLink to='/' >Log Out </NavLink></button>
       {location.pathname === '/home' && (<SearchBar onSearch={onSearch} randomSearch={randomSearch} />)}
-      <button><NavLink to='/favorites' >Favorites </NavLink></button>
+      <button><NavLink to='/fav' >Favorites </NavLink></button>
     </nav>
   );
 };

@@ -17,11 +17,10 @@ import { useDispatch } from "react-redux";
 const App = () => {
   const [characters, setCharacters] = useState([]);
   const location = useLocation();
-  const apiKey = "key=henrym-gabrieltomasi";
+  // const apiKey = "key=henrym-gabrieltomasi";
   const navigate = useNavigate();
   const [access, setAccess] = useState(false);
-  const EMAIL = "gabrieltomasi22@gmail.com";
-  const PASSWORD = "Asd1234";
+
   const dispatch = useDispatch()
   const onSearch = (id) => {
     axios(
@@ -39,7 +38,7 @@ const App = () => {
   };
 
   const randomSearch = ()=>{
-    const id = Math.floor(Math.random() * 5)
+    const id = Math.floor(Math.random() * 826)
     axios(
       `http://localhost:3001/rickandmorty/character/${id}`
     ).then(({ data }) => {
@@ -55,22 +54,23 @@ const App = () => {
   };
   
   const onClose = (id) => {
+    console.log(id);
     dispatch(removeFav(id))
-    setCharacters(
-      characters.filter((char) => {
-        return char.id !== Number(id);
-      })
-    );
+    const removeChar = characters.filter((char) => char.id === Number(id))
+    setCharacters(removeChar);
   };
 
+  function login(userData) {
+    const { email, password } = userData;
+    const URL = 'http://localhost:3001/rickandmorty/login';
+    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+       const { access } = data;
+       setAccess(access);
+       access && navigate('/home');
+    });
+ }
 
 
-  const login = (userData) => {
-    if (userData?.password === PASSWORD && userData?.email === EMAIL) {
-      setAccess(true);
-      navigate("/home");
-    }
-  };
   const logout = () => {
     setAccess(false);
     navigate("/");
@@ -88,7 +88,7 @@ const App = () => {
         <Route path="/home"element={<Cards characters={characters} onClose={onClose} />} />
         <Route path="/about" element={<About />} />
         <Route path="/detail/:id" element={<Detail characters={characters} />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/fav" element={<Favorites />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

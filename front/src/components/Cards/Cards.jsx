@@ -12,7 +12,7 @@ const Cards = ({characters, onClose}) => {
             image={image}
             status={status}
             origin={origin.name}
-            onClose={() => onClose(id)}
+            onClose={onClose}
             />
          })
    return (<div className={style.div}> {element} </div>)

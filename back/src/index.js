@@ -1,16 +1,23 @@
-const http = require("http");
-const fs = require("fs");
-const data = require("./utils/data");
-http
-  .createServer((require, response) => {
-    response.setHeader("Access-Control-Allow-Origin", "*");
+const express = require ('express');
+const server = express();
+const router = require('./routes/index')
+const morgan = require ('morgan')
 
-    if (require.url.includes("/rickandmorty/character")) {
-      const urlPart = require.url.split("/");
-      const id = urlPart[urlPart.length - 1];
-
-      const char = data.find((character) => character.id === Number(id));
-      response.end(JSON.stringify(char));
-    }
-  })
-  .listen(3001, "localhost");
+server.use(morgan('dev'))
+server.use(express.json())
+server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+        );
+    res.header(
+        'Access-Control-Allow-Methods',
+            'GET, POST, OPTIONS, PUT, DELETE'
+    );
+    next();
+});
+        
+    server.use('/rickandmorty', router)
+server.listen(3001, ()=>{console.log('listen on port 3001');})

@@ -4,13 +4,14 @@ import { filterCards, orderCards } from "../../redux/actions";
 import { useState } from "react";
 import style from "../Favorites/Favorites.module.css";
 
-const Favorites = ({ myFavorites, onCloseFav }) => {
+const Favorites = ({ myFavorites, onClose}) => {
   console.log(myFavorites);
   const [aux, setAux] = useState(false);
 
   const element = myFavorites.map(
-    ({ id, name, species, gender, image, status, origin, onClose }) => {
+    ({ id, name, species, gender, image, status, origin}) => {
       return (
+        
         <Card
           key={id}
           id={id}
@@ -20,7 +21,7 @@ const Favorites = ({ myFavorites, onCloseFav }) => {
           image={image}
           status={status}
           origin={origin.name}
-          onClose={() => onClose(id)}
+          onClose={onClose}
         />
       );
     }
