@@ -32,7 +32,7 @@ function Card({
       ) : (
         <button className={style.btn2} onClick={handleFavorite}>🤍</button>
       )}
-      <button className={style.btn} onClick={onClose}> X </button>
+      <button className={style.btn} onClick={()=>onClose(id)}> X </button>
       <h2 className={style.data}>{id}</h2>
       <img className={style.image} src={image} alt={name} />
 
