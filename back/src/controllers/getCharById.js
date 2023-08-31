@@ -26,7 +26,7 @@ module.exports = getCharById = async (req, res) => {
       res.status(404).send("Not Found");
     }
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

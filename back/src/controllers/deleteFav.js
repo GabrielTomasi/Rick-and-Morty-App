@@ -1,4 +1,3 @@
-const { all } = require("axios");
 const { Favorite } = require("../DB_connection");
 
 const deleteFav = async (req, res) => {
@@ -10,7 +9,7 @@ const deleteFav = async (req, res) => {
     const allFav = [await Favorite.findAll()];
     res.status(200).json(allFav);
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).json(error.message);
   }
 };
 

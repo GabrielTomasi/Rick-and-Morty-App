@@ -12,7 +12,7 @@ function Card({
     console.log(id);
     isFav
       ? removeFav(id)
-      : addFav({ id, name, status, species, gender, origin, image, onClose });
+      : addFav({id,name, status, species, gender, origin, image, onClose });
 
     setIsFav(!isFav);
   };
