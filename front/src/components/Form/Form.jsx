@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import validation from "../../validation";
 
-
+import SingUpForm from "../SingUpForm/SingUpForm.jsx"
 const Form = ({ login }) => {
-  const [renderForm, setRenderForm] = useState(true)
+  const [singUp, setSingUp] = useState(false)
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
 
   const [errors, setErrors] = useState({
     email: "",
@@ -25,16 +26,16 @@ const Form = ({ login }) => {
     setErrors(validation({ ...userData, [name]: value }));
   };
 const handleLogin = ()=>{
-  setRenderForm(!renderForm)
+  setSingUp(!singUp)
 }
 const handleSingUp = (event) =>{
   event.preventDefault()
 }
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(renderForm) login(userData);
+    if(!singUp) login(userData);
   };
-  return renderForm ? (<div>
+  return !singUp ? (<div>
       <button onClick={handleLogin}>Sign Up</button>
       <form onSubmit={handleSubmit}>
         <label>User Mail:</label>
@@ -61,29 +62,7 @@ const handleSingUp = (event) =>{
       </form>
     </div>) : (<div>
       <button onClick={handleLogin}>Sign In</button>
-      <form onSubmit={handleSingUp}>
-      <label>User Mail:</label>
-        <input
-          type="text"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-        />
-        <br />
-        {errors.email ? <span>{errors.email}</span> : ''}
-        <br />
-        <label>Password</label>
-        <input
-          type="text"
-          name="password"
-          value={userData.password}
-          onChange={handleChange}
-        />
-        <br />
-        {errors.password ? <span>{errors.password}</span> : ''}
-        <br />
-        <button type="submit">Submit</button>
-      </form>
+      <SingUpForm />
     </div>)
   }
 
