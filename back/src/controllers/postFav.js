@@ -1,13 +1,13 @@
-const Favorite = require("../DB_connection");
+const { Favorite } = require("../DB_connection.js");
 
-module.exports = async (req, res) => {
+module.exports = postFav = async (req, res) => {
   try {
+
     const { id, name, origin, status, image, species, gender } = req.body;
-    console.log(req.body);
     if (!id || !name || !origin || !status || !image || !species || !gender)
       res.status(401).send("Faltan datos");
     else {
-      const fav = await Favorite.build({
+      const fav = await Favorite.findOrCreate({
         where: {
           id: id,
           name: name,
@@ -18,9 +18,10 @@ module.exports = async (req, res) => {
           gender: gender,
         },
       });
+      if (!fav) res.status(501).json({message: "no se pudo agregar a favoritos"})
       console.log(fav);
-      Favorite.save(fav);
       const allFav = await Favorite.findAll();
+      console.log(allFav);
       if (!allFav) res.status(400).send("no hay favoritos");
       return res.status(200).json(allFav);
     }
@@ -28,3 +29,7 @@ module.exports = async (req, res) => {
     res.status(500).json(error.mesage);
   }
 };
+
+module.exports = {
+  postFav
+}

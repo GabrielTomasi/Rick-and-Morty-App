@@ -5,8 +5,8 @@ const deleteFav = async (req, res) => {
   try {
     if (!id) res.status(400).send("no hay nada para eliminar");
 
-    await Favorite.destroy(id);
-    const allFav = [await Favorite.findAll()];
+    await Favorite.destroy({where:{id}});
+    const allFav = await Favorite.findAll();
     res.status(200).json(allFav);
   } catch (error) {
     res.status(500).json(error.message);
