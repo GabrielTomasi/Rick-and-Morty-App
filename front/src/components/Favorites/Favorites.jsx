@@ -5,7 +5,7 @@ import { useState } from "react";
 import style from "../Favorites/Favorites.module.css";
 
 const Favorites = ({ myFavorites, onClose}) => {
-  console.log(myFavorites);
+
   const [aux, setAux] = useState(false);
 
   const element = myFavorites.map(
@@ -28,7 +28,6 @@ const Favorites = ({ myFavorites, onClose}) => {
   );
   const dispatch = useDispatch();
   const handleOrder = (event) => {
-    setAux(!aux);
     dispatch(orderCards(event.target.value));
   };
   const handlerFilter = (event) => {

@@ -6,7 +6,7 @@ const SearchBar = ({onSearch, randomSearch}) => {
   const handleChange=(e)=>{
     setId(e.target.value)
   }
-
+  
 
 
   return (

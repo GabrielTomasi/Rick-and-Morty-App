@@ -3,16 +3,25 @@ import { addFav, removeFav } from "../../redux/actions";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import style from "../Card/Card.module.css";
-
-function Card({
-  id, name, status, species, gender, origin, image, onClose, myFavorites, addFav, removeFav,
+import { useLocation } from "react-router-dom";
+function Card({id, name, status, species, gender, origin, image, onClose, myFavorites, addFav, removeFav,
 }) {
   const [isFav, setIsFav] = useState(false);
+  const [char, setChar] = useState({
+    id, 
+    name, 
+    status, 
+    species, 
+    gender, 
+    origin, 
+    image
+  })
+  const location = useLocation()
   const handleFavorite = () => {
-    console.log(id);
+
     isFav
       ? removeFav(id)
-      : addFav({id,name, status, species, gender, origin, image, onClose });
+      : addFav(char);
 
     setIsFav(!isFav);
   };
@@ -32,7 +41,7 @@ function Card({
       ) : (
         <button className={style.btn2} onClick={handleFavorite}>🤍</button>
       )}
-      <button className={style.btn} onClick={()=>onClose(id)}> X </button>
+      {location.pathname === "/home" && <button className={style.btn} onClick={()=>onClose(id)}> X </button>}
       <h2 className={style.data}>{id}</h2>
       <img className={style.image} src={image} alt={name} />
 

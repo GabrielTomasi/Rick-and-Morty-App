@@ -1,8 +1,8 @@
 import Card from "../Card/Card";
 import style from './Cards.module.css';
 const Cards = ({characters, onClose}) => {
-   console.log(characters);
-   const element = characters.map(({id,name,species,gender,image,status,origin})=>{
+   
+   const element = characters?.map(({id,name,species,gender,image,status,origin})=>{
             return <Card
             key={id}
             id={id}

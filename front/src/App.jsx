@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 const App = () => {
   const [characters, setCharacters] = useState([]);
   const location = useLocation();
-  // const apiKey = "key=henrym-gabrieltomasi";
+
   const navigate = useNavigate();
   const [accessUser, setAccessUser] = useState(false);
 
@@ -45,8 +45,9 @@ const App = () => {
     onSearch(id);
   };
 
+  
   const onClose = (id) => {
-    console.log(id);
+
     dispatch(removeFav(id));
     const removeChar = characters.filter((char) => char.id !== Number(id));
     setCharacters(removeChar);
@@ -58,17 +59,17 @@ const App = () => {
       const URL = "http://localhost:3001/rickandmorty/login";
       const response = await axios(URL + `?email=${email}&password=${password}`);
       const data = response.data;
-      console.log(data);
       const { access } = data;
+      console.log(access)
       setAccessUser(access);
-      accessUser && navigate("/home");
+      navigate("/home");
     } catch (error) {
       window.alert("Pusiste mal la clave mi Rey");
     }
   };
 
   const logout = () => {
-    setaccessUser(false);
+    setAccessUser(false);
     navigate("/");
   };
   useEffect(() => {
@@ -96,7 +97,7 @@ const App = () => {
           path="/detail/:id"
           element={<Detail characters={characters} />}
         />
-        <Route path="/fav" element={<Favorites />} />
+        <Route path="/fav" element={<Favorites onClose={onClose}/>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>

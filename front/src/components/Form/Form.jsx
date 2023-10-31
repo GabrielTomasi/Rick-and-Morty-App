@@ -3,6 +3,7 @@ import validation from "../../validation";
 
 
 const Form = ({ login }) => {
+  const [renderForm, setRenderForm] = useState(true)
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -23,14 +24,18 @@ const Form = ({ login }) => {
     setUserData({ ...userData, [name]: value });
     setErrors(validation({ ...userData, [name]: value }));
   };
-
-  
+const handleLogin = ()=>{
+  setRenderForm(!renderForm)
+}
+const handleSingUp = (event) =>{
+  event.preventDefault()
+}
   const handleSubmit = (event) => {
     event.preventDefault();
-    login(userData);
+    if(renderForm) login(userData);
   };
-  return (
-    <div>
+  return renderForm ? (<div>
+      <button onClick={handleLogin}>Sign Up</button>
       <form onSubmit={handleSubmit}>
         <label>User Mail:</label>
         <input
@@ -54,8 +59,32 @@ const Form = ({ login }) => {
         <br />
         <button type="submit">Submit</button>
       </form>
-    </div>
-  );
-};
+    </div>) : (<div>
+      <button onClick={handleLogin}>Sign In</button>
+      <form onSubmit={handleSingUp}>
+      <label>User Mail:</label>
+        <input
+          type="text"
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
+        />
+        <br />
+        {errors.email ? <span>{errors.email}</span> : ''}
+        <br />
+        <label>Password</label>
+        <input
+          type="text"
+          name="password"
+          value={userData.password}
+          onChange={handleChange}
+        />
+        <br />
+        {errors.password ? <span>{errors.password}</span> : ''}
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>)
+  }
 
 export default Form;
