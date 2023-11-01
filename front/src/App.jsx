@@ -22,6 +22,7 @@ const App = () => {
 
   const dispatch = useDispatch();
   const onSearch = async (id) => {
+    if(!id) return window.alert ("Enter a number between 1 and 826")
     try {
       const response = await axios(
         `http://localhost:3001/rickandmorty/character/${id}`

@@ -1,7 +1,8 @@
-.div {
+div {
+  display: flex;
+  align-items: center;
+  text-align: justify;
   font-family: Tw Cen MT, Verdana, Geneva, Tahoma, sans-serif;
   font-size: 2em;
-  display: flex;
-  text-align: justify;
-
 }
+
