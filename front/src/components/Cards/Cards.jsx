@@ -1,5 +1,5 @@
 import Card from "../Card/Card";
-import style from './Cards.module.css';
+import { StyledCards } from "../../styled-components/CardsContainer";
 const Cards = ({characters, onClose}) => {
    
    const element = characters?.map(({id,name,species,gender,image,status,origin})=>{
@@ -15,7 +15,7 @@ const Cards = ({characters, onClose}) => {
             onClose={onClose}
             />
          })
-   return (<div className={style.div}> {element} </div>)
+   return (<StyledCards> {element} </StyledCards>)
 };
 
 export default Cards;

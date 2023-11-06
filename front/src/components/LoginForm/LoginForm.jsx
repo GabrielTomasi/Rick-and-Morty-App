@@ -1,10 +1,25 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import validation from "../../validation";
-const LoginForm = ({ login }) => {
+import axios from "axios";
+import {
+  Wrapper,
+  Form,
+  Input,
+  Button,
+  GlobalStyle,
+  InputsConteiner,
+  StyledSpan
+} from "../../styled-components/LoginForm.js";
+
+const LoginForm = () => {
+  const navigate = useNavigate()
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
+  const [accessUser, setAccessUser] = useState(false);
 
   const [errors, setErrors] = useState({
     email: "",
@@ -21,55 +36,66 @@ const LoginForm = ({ login }) => {
     setUserData({ ...userData, [name]: value });
     setErrors(validation({ ...userData, [name]: value }));
   };
-  const handleLogin = () => {
-    setSingUp(!singUp);
+
+  const login = async (userData) => {
+    try {
+      console.log(userData)
+      const { email, password } = userData;
+      const URL = "http://localhost:3001/rickandmorty/login";
+      const response = await axios(URL + `?email=${email}&password=${password}`);
+      const data = response.data;
+      const { access } = data;
+      console.log(access)
+      setAccessUser(access);
+      access && navigate("/home");
+    } catch (error) {
+      console.log(error)
+      window.alert(error.response.data);
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!singUp) login(userData);
+    login(userData);
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-            <div>
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <Form onSubmit={handleSubmit}>
+          <div>
+            <InputsConteiner>
+              {/* <label>User Mail:</label> */}
+              <Input
+                type="text"
+                name="email"
+                value={userData.email}
+                onChange={handleChange}
+                placeholder="User e-mail"
+              />
+            {errors.email ? <StyledSpan>{errors.email}</StyledSpan> : ""}
+            </InputsConteiner>
+          </div>
+          <div>
+            <InputsConteiner>
+              {/* <label>Password</label> */}
+              <Input
+                type="text"
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
+                placeholder="Password"
+              />
+            {errors.password ? <StyledSpan>{errors.password}</StyledSpan> : ""}
+            </InputsConteiner>
+          </div>
 
-          <label>User Mail:</label>
-          <input
-            type="text"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-          />
-            </div>
-            <div>
-
-          {errors.email ? <span>{errors.email}</span> : ""}
-            </div>
-        </div>
-        <div>
-            <div>
-
-          <label>Password</label>
-          <input
-            type="text"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-          />
-            </div>
-            <div>
-
-          {errors.password ? <span>{errors.password}</span> : ""}
-            </div>
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+            <Button type="submit">Submit</Button>
+ 
+        </Form>
+      </Wrapper>
+    </>
   );
 };
 

@@ -1,64 +1,110 @@
 import axios from "axios";
-import { useState } from "react"
+import { useState, useEffect } from "react";
+import validation from "../../validation.js";
 
-const SignUpForm = ()=>{
+import {
+  Wrapper,
+  Form,
+  Input,
+  Button,
+  GlobalStyle,
+  InputsConteiner,
+  StyledSpan,
+} from "../../styled-components/LoginForm.js";
 
-const [singUpData, setSingUpData] = useState({
+const SignUpForm = () => {
+  const [singUpData, setSingUpData] = useState({
     email: "",
     password: "",
     confirm_password: "",
-});
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
 
-const signUp = (singUpData)=>{
+  useEffect(() => {
+    setErrors(validation(singUpData));
+  }, [singUpData]);
+
+  const signUp = (singUpData) => {
     const endpoint = "http://localhost:3001/rickandmorty/signup";
-    axios.post(endpoint, singUpData).then((response)=>{
-        const {create} = response.data
-        if (create === true){
-            window.alert("User created successfully")
-            window.location.reload(true)
+    axios
+      .post(endpoint, singUpData)
+      .then((response) => {
+        const { create } = response.data;
+        if (create === true) {
+          window.alert("User created successfully");
+          window.location.reload(true);
         }
-    }).catch((error)=>{
-        return window.alert(error.response.data)
-    });
+      })
+      .catch((error) => {
+        return window.alert(error.response.data);
+      });
+  };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (singUpData.password !== singUpData.confirm_password)
+      return window.alert("Passwords do not match");
+    signUp(singUpData);
+  };
 
-
-}
-
-const handleSubmit = (event)=>{
-    event.preventDefault()
-    if (singUpData.password !== singUpData.confirm_password) return window.alert("Passwords do not match");
-    signUp(singUpData)
-}
-
-const handleChange = (event)=>{
+  const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setErrors(validation({ ...singUpData, [name]: value }));
+    setSingUpData({ ...singUpData, [name]: value });
+  };
+  console.log(errors);
+  return (
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <Form onSubmit={handleSubmit}>
+          <InputsConteiner>
+            <Input
+              type="text"
+              name="email"
+              value={singUpData.email}
+              onChange={handleChange}
+              placeholder="User e-mail"
+            />
+            {errors.email ? <StyledSpan>{errors.email}</StyledSpan> : ""}
+          </InputsConteiner>
+          <InputsConteiner>
+            <Input
+              type="text"
+              name="password"
+              value={singUpData.password}
+              onChange={handleChange}
+              placeholder="Password"
+            />
+            {errors.password ? <StyledSpan>{errors.password}</StyledSpan> : ""}
+          </InputsConteiner>
+          <InputsConteiner>
+            <Input
+              type="text"
+              name="confirm_password"
+              value={singUpData.confirm_password}
+              onChange={handleChange}
+              placeholder="Confirm password"
+            />
+            {errors.confirm_password ? (
+              <StyledSpan>{errors.confirm_password}</StyledSpan>
+            ) : (
+              ""
+            )}
+          </InputsConteiner>
 
-    setSingUpData({...singUpData, [name]:value})
-}
+          {errors ? <Button type="submit">Submit</Button> : ""}
 
-return (
-    <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Email</label>
-                <input type="text" name="email" value={singUpData.email} onChange={handleChange}/>
-            </div>
-            <div>
-                <label>password</label>
-                <input type="text" name="password" value={singUpData.password} onChange={handleChange}/>
-            </div>
-            <div>
-                <label>confirm password</label>
-                <input type="text" name="confirm_password" value={singUpData.confirm_password} onChange={handleChange}/>
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
-)
-}
+          
+        </Form>
+      </Wrapper>
+    </>
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;
