@@ -1,18 +1,20 @@
 const { User } = require("../DB_connection");
 
 const login = async (req, res) => {
+
   const { email, password } = req.query;
 
-  if (!email || !password) res.status(400).send("faltan datos");
+  if (!email || !password) res.status(400).send("Something went wrong: data is missing");
   try {
     const log = await User.findOne({ where: { email: email } });
-    if (!log) res.status(403).send("direccion incorrecta");
-    if (log.password === !password) res.status(403).send("password incorrecta");
+    console.log("log", log.password)
+    if (!log) return res.status(403).send("Something went wrong: Email not found");
+    if (log.password === !password) return res.status(403).send("Something went wrong: Unknown password");
     res.status(200).json({
       access: true,
     });
   } catch (error) {
-    res.status(500).json(error.message)
+    console.log(error)
   }
 };
 
