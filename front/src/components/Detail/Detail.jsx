@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { StyledCharacterDetail, DetailImgContainer, DetailWrapper, StyledImage, DetailTextContainer } from "../../styled-components/CharacterDetail";
 
 const Detail = ({characters}) => {
   const [character, setCharacter] = useState({});
@@ -22,14 +23,22 @@ const Detail = ({characters}) => {
   }, [id]);
   
   return (
-    <div>
-    <h2>Name: {character.name && character.name}</h2>
-    <h2>Status: {character.status && character.status}</h2>
-    <h2>Species: {character.species && character.species}</h2>
-    <h2>Gender: {character.gender && character.gender}</h2>
-    <h2>Origin: {character.origin?.name && character.origin?.name}</h2>
-    <img src={character.image && character.image} alt={character.name && character.name} />
-    </div>
+    <StyledCharacterDetail>
+      <DetailWrapper>
+      <DetailImgContainer>
+
+    <StyledImage src={character.image && character.image} alt={character.name && character.name} />
+      </DetailImgContainer>
+      <DetailTextContainer>
+
+    <h3>Name</h3> <span>{character.name && character.name}</span>
+    <h3>Status</h3> <span>{character.status && character.status}</span>
+    <h3>Species</h3> <span>{character.species && character.species}</span>
+    <h3>Gender</h3> <span>{character.gender && character.gender}</span>
+    <h3>Origin</h3> <span>{character.origin?.name && character.origin?.name}</span>
+      </DetailTextContainer>
+      </DetailWrapper>
+    </StyledCharacterDetail>
   )
 };
 export default Detail;
