@@ -1,23 +1,49 @@
-# Proyecto Integrador
+<h1> Proyecto Integrador Rick and Morty </h1>
 
-En este repositorio deberás desarrollar tu Proyecto Integrador. Durante el Módulo 2 trabajarás principalmente en la carpeta "front", luego en el Módulo 3 empezarás a utilizar la carpeta "back" (puedes dejarla así como está por el momento).
+<h2>Definicion del proyecto </h2>
 
-En la carpeta "front" te encontrarás con un Proyecto inicializado con el Framework Vite. NO TE PREOCUPES, no debes cambiar ninguna configuración. Simplemente sigue las instrucciones de tu Instructor/a que te irá guiando y de las consignas de la Homework.
+<p> Este proyecto forma parte del Bootcamp de Henry. El mismo se basa en la utilización de la <a href="https://rickandmortyapi.com/">API rick and morty </a></p>
 
-Recuerda que para realizar las peticiones a la API externa de Rick & Morty, utilizaremos la siguiente URL como ejemplo:
+<h3>Objetivo Principal</h3> 
 
-https://rym2-production.up.railway.app/api/character/10?key={tu-api-key}
+<p>Desarrollar una SPA integrando React y Express.js como marcos de trabajo, utilizando Redux para el manejo de estados globales.</br>
+Adicionalmente, se utilizó styled-components para el estilado de la página.
+</p>
 
-Donde tu API KEY está compuesta de la siguiente manera: `henrym-{tu-usuario-de-github}`
+<h3>Funcionalides</h3>
 
-Recuerda que tu usuario de Github debe ir en minúsculas, por ejemplo: `henrym-misuaurio`
+<ul>
+<li> Sign Up</li>
+<li> Log In</li>
+<li> Barra de busqueda por id del personaje</li>
+<li> Busqueda aleatoria de personajes</li>
+<li> Agregar/eliminar personajes favoritos</li>
+<li> Detalle de personajes</li>
+</ul>
 
-Aspectos a tener en cuenta:
+<h3>Tecnologías Utilizadas</h3>
 
-- Recuerda ir PUSHEANDO los avances de tu proyecto diariamente. No importa si avanzaste mucho, poco, o todavía tienes consignas por completar. Es importante que vayas actualizando el repositorio con tu trabajo.
+<ul>
+<li>Backend 
+    <ul>
+    <li> Express.js</li>
+    <li> PostgreSQL</li>
+    <li> sequelize</li>
+    </ul>
+</li>
+<li>Frontend 
+    <ul>
+    <li> React</li>
+    <li> Redux </li>
+    <li> Styled-components</li>
+    </ul>
+</li>
+</ul>
 
-- Es VITAL que utilices tu API KEY personal, y no la compartas con tus compañeros/as. 
+<h3>Imágenes</h3>
 
-- Si alguna petición a la API te responde con un error, checkea bien que hayas escrito correctamente el endpoint y tu API KEY.
+![Landing Page](/PI-GabrielTomasi/front/src/assets/Rickandmortylogin.png)
+</br></br>
 
-Muchos éxitos en este Proyecto!!!
+![Home Page](/PI-GabrielTomasi/front/src/assets/Homepage.png)
+
