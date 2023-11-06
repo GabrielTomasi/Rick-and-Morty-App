@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const StyledConteiner = styled.div`
   display: flex;
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 85vh;
   padding: 2rem;
   justify-content: space-around;
-    border: solid black;
-    overflow: auto;
+  overflow: auto;
 `;
 
 export const FilterOrder = styled.aside`
@@ -15,8 +14,7 @@ export const FilterOrder = styled.aside`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin: 15px;
-  margin-top:35px;
+  margin-top: 35px;
 
   & select {
     border: 2px solid #ccc;
@@ -28,16 +26,16 @@ export const FilterOrder = styled.aside`
     text-transform: uppercase;
   }
 
-  & label{
+  & label {
     text-transform: uppercase;
     margin: 5px;
     display: flex;
   }
 
-  & input{
+  & input {
     margin: 5px;
     width: 20px;
-    color: black
+    color: black;
   }
 `;
 
@@ -57,7 +55,7 @@ export const CardsContainer = styled.div`
   justify-content: space-around;
   justify-self: right;
   align-items: center;
-  width: 120%;
+  width: 100%;
   height: 100vh;
   position: relative;
-`
+`;
