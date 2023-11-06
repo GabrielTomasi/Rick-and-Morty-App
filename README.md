@@ -4,7 +4,7 @@
 
 <p> Este proyecto forma parte del Bootcamp de Henry. El mismo se basa en la utilización de la <a href="https://rickandmortyapi.com/">API rick and morty </a></p>
 
-<h3>Objetivo Principal</h3> 
+<h3>Objetivo Principal</h3>
 
 <p>Desarrollar una SPA integrando React y Express.js como marcos de trabajo, utilizando Redux para el manejo de estados globales.</br>
 Adicionalmente, se utilizó styled-components para el estilado de la página.
@@ -47,4 +47,9 @@ Adicionalmente, se utilizó styled-components para el estilado de la página.
 
 <image src="./front/src/assets/Homepage.png" alt="homepage">
 
+</br></br>
 
+<image src="./front/src/assets/Detail.png" alt="Detail">
+</br></br>
+
+<image src="./front/src/assets/Favorites.png" alt="Favorites">
