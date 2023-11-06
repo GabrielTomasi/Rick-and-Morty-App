@@ -42,8 +42,9 @@ Adicionalmente, se utilizó styled-components para el estilado de la página.
 
 <h3>Imágenes</h3>
 
-![Landing Page](/PI-GabrielTomasi/front/src/assets/Rickandmortylogin.png)
+<image src="./front/src/assets/Rickandmortylogin.png" alt="landingpage">
 </br></br>
 
-![Home Page](/PI-GabrielTomasi/front/src/assets/Homepage.png)
+<image src="./front/src/assets/Homepage.png" alt="homepage">
+
 
