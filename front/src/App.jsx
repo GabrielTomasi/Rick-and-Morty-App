@@ -13,12 +13,15 @@ import PageNotFound from "./components/Page no found/Pagenofound";
 import { removeFav } from "./redux/actions";
 import { useDispatch } from "react-redux";
 
+import { AppContainer } from "./styled-components/AppContainer.js";
+
 const App = () => {
+  const [accessUser, setAccessUser] = useState(false);
   const [characters, setCharacters] = useState([]);
   const location = useLocation();
 
   const navigate = useNavigate();
-  const [accessUser, setAccessUser] = useState(false);
+
 
   const dispatch = useDispatch();
   const onSearch = async (id) => {
@@ -54,21 +57,7 @@ const App = () => {
     setCharacters(removeChar);
   };
 
-  const login = async (userData) => {
-    try {
-      const { email, password } = userData;
-      const URL = "http://localhost:3001/rickandmorty/login";
-      const response = await axios(URL + `?email=${email}&password=${password}`);
-      const data = response.data;
-      const { access } = data;
-      console.log(access)
-      setAccessUser(access);
-      navigate("/home");
-    } catch (error) {
-      window.alert("Pusiste mal la clave mi Rey");
-    }
-  };
-
+  
   const logout = () => {
     setAccessUser(false);
     navigate("/");
@@ -78,17 +67,17 @@ const App = () => {
   }, [accessUser]);
 
   return (
-    <div className="App">
+    <AppContainer>
       {location.pathname !== "/" && (
         <Navigation
-          onSearch={onSearch}
-          logout={logout}
-          randomSearch={randomSearch}
+        onSearch={onSearch}
+        logout={logout}
+        randomSearch={randomSearch}
         />
-      )}
+        )}
 
       <Routes>
-        <Route path="/" element={<Form login={login} />} />
+        <Route path="/" element={<Form />} />
         <Route
           path="/home"
           element={<Cards characters={characters} onClose={onClose} />}
@@ -101,7 +90,7 @@ const App = () => {
         <Route path="/fav" element={<Favorites onClose={onClose}/>} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </div>
+    </AppContainer>
   );
 };
 
