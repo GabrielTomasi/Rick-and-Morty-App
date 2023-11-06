@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import img from "../images/950223-digital-art-artwork-TV-TV-Series-Adult-Swim-Rick-and-Morty.jpg"
+import img from "../assets/950223-digital-art-artwork-TV-TV-Series-Adult-Swim-Rick-and-Morty.jpg"
 
 export const AppContainer = styled.div`
   display: flex;

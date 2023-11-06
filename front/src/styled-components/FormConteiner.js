@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../images/Rick_and_Morty.svg.png"
+import logo from "../assets/Rick_and_Morty.svg.png"
 import {keyframes} from "styled-components";
 
 
